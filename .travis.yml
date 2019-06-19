@@ -2,3 +2,10 @@ language: node_js
 node_js: node
 env:
 - CI=true
+deploy:
+  provider: heroku
+  api_key:
+    secure: bqcAgUf4xBFaqZ1M8FVmsAOu5AYr7xG5xwo91NZUYhs+6DyvxE+eHhrV8WqDb/EYNUDwxd81CLDGy5id6yCajxrRp5AailNK2wmR1MFlViFfZVtvc3qyxP1mCoVY248F4PzK4qOsFfQcD/hUIXo2epfKFLZLew6dI80JXFvrXBvrTSLMseBTZd0URa3XMBLvTKV3P/sMZ1KOmxQUbFjqCQKkC79b4/6bqgPtiO56nHAsZLQC2LgWTr8iXyeKYWPt4wJXKXa8ZbZlblWY4y8yVTyODQb848tC+nZlVcwUj7i6oNANOQD41cmxPX+6f/oIx7aGuAIur7FzcT6VUzcNsAcmEXOwA6udLTpjbR6hCs/jfwM1SUSizjH1N+KKzj3XXdFj2CRJVnQXDjNXzOYOMq+2SR0riDoE3JTjMUXQQqIuLJaunnVGG94uhCnixNDYKk1TRBQLhR9vBN/zb51mQbntgyWeYP+0Zw5IftfVjBxQVwJd9RNgrkI4EKMWwvQijqu8zdrJvDtRJJSpEtY5tcHHDjOoJI2LxKV0lobQkXq3Q0lUVfUmXiC4KGODL/4GFacfo7mj1ZbdXep6S5DU0FBDUcGYuEtnOn/97cCx3GEYzHBlPL1PGRPGOiY9ujFajnmH/F0EICOnifleX2ltZOn79/PPgCf8MceoHQH+/F4=
+  app: google-books-sbs
+  on:
+    repo: shlomibe21/google-books
