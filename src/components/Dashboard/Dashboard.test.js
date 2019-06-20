@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from "enzyme";
 
-import BooksList from './BooksList';
+import Dashboard from './Dashboard';
 
-describe("<BooksList />", () => {
+describe("<Dashboard />", () => {
     it("Renders without crashing", () => {
-        shallow(<BooksList />);
+        shallow(<Dashboard />);
     });
 });

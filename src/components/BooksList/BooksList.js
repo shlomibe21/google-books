@@ -1,13 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react';
 
 import './BooksList.css';
 
-class BooksList extends Component {
-    render () {
-        return (
-            <h1>Welcome to SBS Books</h1>
-        );
-    }
+function BooksList(props) {
+    //console.log(props.books);
+    return (        
+        <div>
+            <h2>Books List</h2>
+        </div>
+    );
 }
 
 export default BooksList;

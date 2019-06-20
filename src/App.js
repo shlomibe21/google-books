@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import BooksList from "./components/BooksList/BooksList"
+import Dashboard from "./components/Dashboard/Dashboard";
+
 import './App.css';
 
 export class App extends React.Component {
@@ -13,7 +14,7 @@ export class App extends React.Component {
           </header>
           <main>
             <Switch>
-              <Route exact path="/" component={BooksList} />
+              <Route exact path="/" component={Dashboard} />
             </Switch>
           </main>
         </div>
