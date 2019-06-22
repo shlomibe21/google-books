@@ -11,14 +11,15 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             books: [],
+            query: " "
         };
     }
 
     search(query) {
-        return fetchBooks("Pride and Prejudice and Zombies", GOOGLE_BOOKS_API_URL, this.getFetchResults);
+        return fetchBooks("Pride and Prejudice and Zombies", GOOGLE_BOOKS_API_URL, this.getFetchedResults);
     }
 
-    getFetchResults = (err, data) => {
+    getFetchedResults = (err, data) => {
         if (err) {
             console.log(err);
         }
@@ -30,13 +31,21 @@ class Dashboard extends Component {
     render() {
         // Get the books list
         let { books } = this.state;
+        let booksList = null;
+        if (books) {
+            booksList = <BooksList books={books} />
+        }
         return (
             <div>
-                <h1>Welcome to SBS Books</h1>
-                <button className="form-btn" onClick={(evt) => this.search(evt)}>
+                <header>
+                    <h1>Welcome to SBS Books</h1>
+                </header>
+                <button
+                    className="search-button"
+                    onClick={(evt) => this.search(evt)}>
                     Search
                 </button>
-                <BooksList books={books} />
+                {booksList}
             </div>
         );
     }
