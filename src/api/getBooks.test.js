@@ -1,7 +1,7 @@
 import fetchBooks from './getBooks.api.js';
 
 describe('Call to fetchBooks', () => {
-  it('should return JSON object of books', (done) => {
+  it('Should return JSON object of books', (done) => {
     fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1/volumes", (err, data) => {
       expect(err).toEqual(null);
       expect(data).toBeDefined();
@@ -12,10 +12,17 @@ describe('Call to fetchBooks', () => {
       done();
     });
   });
-});
 
-describe('Call to fetchBooks', () => {
-  it('should return Not Found error due too wrong url', (done) => {
+  it('Should return data with totalItems =  0, due too a weird query', (done) => {
+    fetchBooks("jkhdhsafh oklkjj", "https://www.googleapis.com/books/v1/volumes", (err, data) => {
+      expect(err).toEqual(null);
+      expect(data).toBeDefined();
+      expect(data.totalItems).toEqual(0);
+      done();
+    });
+  });
+
+  it('Should return Not Found error due too wrong url', (done) => {
     fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1", (err, data) => {
       expect(err).toEqual('Not Found');
       done();

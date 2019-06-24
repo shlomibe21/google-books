@@ -13,7 +13,7 @@ function BooksList(props) {
         ));
     }
     else {
-        booksList = <title className="books-list-title">Empty</title>
+        booksList = <span className="books-list-title">Empty</span>
     }
     return (
         <section className="books-container">

@@ -8,9 +8,17 @@ function BookTile(props) {
         let authors = getAuthors(props.volumeInfo);
 
         function getImage(volumeInfo) {
+            let thumbnail = null;
+            let title = null;
+            if((volumeInfo.imageLinks) && (volumeInfo.imageLinks.thumbnail)) {
+                thumbnail = volumeInfo.imageLinks.thumbnail;
+            }
+            if(volumeInfo.title) {
+                title = volumeInfo.title;
+            }
             return <img
-                alt={`${volumeInfo.title}`}
-                src={`${volumeInfo.imageLinks.thumbnail}`}
+                alt={`${title}`}
+                src={`${thumbnail}`}
             />
         }
 
@@ -18,13 +26,13 @@ function BookTile(props) {
         function getAuthors(volumeInfo) {
             // Check if authors exist
             if (!volumeInfo.authors) {
-                // No authors for this volume, return empty list
+                // No authors for this volume, return an empty list
                 return <span></span>
             }
             // At least one author found, build the list
             let authorsList = volumeInfo.authors;
             return authorsList.map((author, index) => {
-                // Insert comma between authors
+                // Insert a comma between authors
                 return <span key={index}>{author}{index + 1 < authorsList.length ? ', ' : ''} </span>
             });
         }
