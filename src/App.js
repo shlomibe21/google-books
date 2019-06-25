@@ -9,9 +9,6 @@ export class App extends React.Component {
     return (
       <BrowserRouter>
         <div>
-          <header>
-
-          </header>
           <main>
             <Switch>
               <Route exact path="/" component={Dashboard} />

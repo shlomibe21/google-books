@@ -1,0 +1,22 @@
+.spinnerModal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    text-align: center;
+    z-index: 1; /* Sit on top */
+    overflow: auto;
+    background: url("./images/ajax-indicator-circle-ball-blue.gif") no-repeat
+      center fixed;
+    background-color: rgba(
+      255,
+      255,
+      255,
+      0.1
+    ); /* Create overlay - black w/ opacity */
+  }
+  s
+  .spinnerModal p {
+    margin-top: 300px;
+  }

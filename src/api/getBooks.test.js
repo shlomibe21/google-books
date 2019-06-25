@@ -1,36 +1,28 @@
 import fetchBooks from './getBooks.api.js';
-//const request = require('supertest');
-//const app = require('../server/app');
-//var books = require('./getBooks.api');
 
-var should = require('should');
-
-//const knex = require('../server/config/knex_config');
-
-/*const newUser = {
-  first_name: 'me',
-  last_name: 'me2',
-  email: 'email@email.com',
-  pssword: 'pwd123',
-};
-
-afterAll(() => {
-  knex.destroy();
-});*/
-
-describe('GET /books', () => {
-  it('should return JSON object of books', (done) => {
+describe('Call to fetchBooks', () => {
+  it('Should return JSON object of books', (done) => {
     fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1/volumes", (err, data) => {
-      console.log('Response: ', data.items[1]);
-      //console.log('Error: ', err);
       expect(err).toEqual(null);
+      expect(data).toBeDefined();
+      expect(typeof {data: 'data'}).toBe('object');
+      expect(data.items.length).not.toEqual(0);
+      expect(data.items[0].volumeInfo.length).not.toEqual(0);
+      expect(data.items[0].volumeInfo).toHaveProperty('title');
       done();
     });
   });
-});
 
-describe('GET /books', () => {
-  it('should return not-found error due too wrong url', (done) => {
+  it('Should return data with totalItems =  0, due too a weird query', (done) => {
+    fetchBooks("jkhdhsafh oklkjj", "https://www.googleapis.com/books/v1/volumes", (err, data) => {
+      expect(err).toEqual(null);
+      expect(data).toBeDefined();
+      expect(data.totalItems).toEqual(0);
+      done();
+    });
+  });
+
+  it('Should return Not Found error due too wrong url', (done) => {
     fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1", (err, data) => {
       expect(err).toEqual('Not Found');
       done();
