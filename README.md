@@ -10,13 +10,13 @@ Application displys up to 16 books on the page and the user can use the Next but
 ## App Screeshots
 
 ## Technologies
+  - JavaScript
   - ReactJS
   - JSX
   - HTML5
   - CSS3
-  - JavaScript
   
-## API
+- **API**
   - google books API
 
 - **Testing**
