@@ -23,7 +23,7 @@ ul {
         display: flex;
         flex-flow: row wrap;
         justify-content: flex-start;
-        /*border: solid red 1px;*/
+        margin-left: 5%;
     }
 
     .albums-container li {

@@ -51,7 +51,7 @@ class Dashboard extends Component {
         }
         else {
             // If fetch was ok we need to set prevStartIndex to the same value as currentStartIndex
-            this.setState({ prevStartIndex: this.state.currentStartIndex});
+            this.setState({ prevStartIndex: this.state.currentStartIndex });
             //console.log('Books Data: ', data);
             this.setState({ books: data });
         }
@@ -126,8 +126,8 @@ class Dashboard extends Component {
                     onSearchButtonClick={() => this.handleOnClickSearchButton()}
                     onSearchInputKeyDown={(evt) => this.handleSearchInputonKeyDown(evt)}
                 />
-                {prevItemsButtonHidden ? <span></span> : <button className="prevItemsButton" onClick={(evt) => this.handleSearchPrevItems(evt)}>Prev</button>}
-                {nextItemsButtonHidden ? <span></span> : <button className="nextItemsButton" onClick={(evt) => this.handleSearchNextItems(evt)}>Next</button>}
+                {prevItemsButtonHidden ? <span></span> : <button className="prev-items-button" onClick={(evt) => this.handleSearchPrevItems(evt)}>Prev</button>}
+                {nextItemsButtonHidden ? <span></span> : <button className="next-items-button" onClick={(evt) => this.handleSearchNextItems(evt)}>Next</button>}
                 {booksList}
             </div>
         );

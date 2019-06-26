@@ -10,6 +10,11 @@ describe('<Search />', () => {
 
     it('Renders the search button initially', () => {
         const wrapper = shallow(<Search />);
+        expect(wrapper.find('.search-books-input').hasClass('search-books-input')).toEqual(true);
+    });
+
+    it('Renders the search button initially', () => {
+        const wrapper = shallow(<Search />);
         expect(wrapper.find('.search-books-button').hasClass('search-books-button')).toEqual(true);
     });
 });

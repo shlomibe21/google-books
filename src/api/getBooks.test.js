@@ -8,8 +8,20 @@ describe('Call to fetchBooks', () => {
     fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1/volumes", maxResults, startIndex, (err, data) => {
       expect(err).toEqual(null);
       expect(data).toBeDefined();
-      expect(typeof {data: 'data'}).toBe('object');
+      expect(typeof { data: 'data' }).toBe('object');
       expect(data.items.length).not.toEqual(0);
+      expect(data.items[0].volumeInfo.length).not.toEqual(0);
+      expect(data.items[0].volumeInfo).toHaveProperty('title');
+      done();
+    });
+  });
+
+  it('Should return a specified number of results', function (done) {
+    fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1/volumes", 15, startIndex, (err, data) => {
+      expect(err).toEqual(null);
+      expect(data).toBeDefined();
+      expect(typeof { data: 'data' }).toBe('object');
+      expect(data.items.length).toEqual(15);
       expect(data.items[0].volumeInfo.length).not.toEqual(0);
       expect(data.items[0].volumeInfo).toHaveProperty('title');
       done();
@@ -28,6 +40,20 @@ describe('Call to fetchBooks', () => {
   it('Should return Not Found error due too wrong url', (done) => {
     fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1", maxResults, startIndex, (err, data) => {
       expect(err).toEqual('Not Found');
+      done();
+    });
+  });
+
+  it('Should return an error if maxResults is over the allowed value(40)', (done) => {
+    fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1/volumes", 60, startIndex, (err, data) => {
+      expect(err).toBeDefined();
+      done();
+    });
+  });
+
+  it('Should return an error if startIndex is out of range', (done) => {
+    fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1/volumes", maxResults, -1, (err, data) => {
+      expect(err).toBeDefined();
       done();
     });
   });

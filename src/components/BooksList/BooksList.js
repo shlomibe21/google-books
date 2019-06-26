@@ -18,19 +18,17 @@ function BooksList(props) {
         // Display an empty page message
         totalItems = null;
         booksList = <div className="emapty-page-msg centered-container">
-        <p>Hey, It is empty in here! Let's find some good books to read.</p>
-          <img
-            src={require("../../images/woman-1459220_1280.png")}
-            alt="Empty page"
-          />
-      </div>
+            <p>Hey, It is empty in here! Let's find some good books to read.</p>
+            <img
+                src={require("../../images/woman-1459220_1280.png")}
+                alt="Empty page"
+            />
+        </div>
     }
     return (
         <section className="books-container">
-            <div className="row">
-                <legend >Books List</legend>
-                {totalItems}
-            </div>
+            <legend >Books List</legend>
+            {totalItems}
             <ul className="books-list">{booksList}</ul>
         </section>
     );

@@ -3,10 +3,10 @@ button {
     height: 40px;
     border: none;
 }
-.nextItemsButton {
+.next-items-button {
     float: right;
 }
 
-.prevItemsButton {
+.prev-items-button {
     float: left;
 }
