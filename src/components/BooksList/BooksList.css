@@ -29,4 +29,13 @@ ul {
     .albums-container li {
         align-items: flex-start;
     }
+
+    .emapty-page-msg {
+        font-size: 26px;
+        font: bold;
+    }
+
+    .emapty-page-msg img {
+        height: 30%;
+    }
 }

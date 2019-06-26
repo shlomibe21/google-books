@@ -12,7 +12,7 @@ class SearchInput extends Component {
                     type="text"
                     className="search-books-input"
                     aria-label="Search books input"
-                    placeholder="Search books"
+                    placeholder="Search Term"
                     value={this.props.searchQuery}
                     onChange={(evt) => this.props.onSearchInputChange(evt)}
                     onKeyDown={(evt) => this.props.onSearchInputKeyDown(evt)}
