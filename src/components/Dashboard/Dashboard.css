@@ -1,0 +1,12 @@
+button {
+    width: 60px;
+    height: 40px;
+    border: none;
+}
+.next-items-button {
+    float: right;
+}
+
+.prev-items-button {
+    float: left;
+}

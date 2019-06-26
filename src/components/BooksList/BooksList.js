@@ -5,7 +5,9 @@ import './BooksList.css';
 function BooksList(props) {
     //console.log(props.books);
     let booksList = null;
+    let totalItems = null;
     if (props.books && props.books.items) {
+        totalItems = <span>{props.books.totalItems} items found</span>;
         booksList = props.books.items.map((book, index) => (
             <li key={index} className="">
                 <BookTile index={index} {...book} />
@@ -13,11 +15,20 @@ function BooksList(props) {
         ));
     }
     else {
-        booksList = <span className="books-list-title">Empty</span>
+        // Display an empty page message
+        totalItems = null;
+        booksList = <div className="emapty-page-msg centered-container">
+            <p>Hey, It is empty in here! Let's find some good books to read.</p>
+            <img
+                src={require("../../images/woman-1459220_1280.png")}
+                alt="Empty page"
+            />
+        </div>
     }
     return (
         <section className="books-container">
-            <legend>Books List</legend>
+            <legend >Books List</legend>
+            {totalItems}
             <ul className="books-list">{booksList}</ul>
         </section>
     );
