@@ -1,14 +1,92 @@
+html {
+  height: 100%;
+  box-sizing: border-box;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  padding: 0;
+  font-family: "Rubik", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  /*background-color: #e9edf2;*/
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.centered-container {
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
+.centered-text {
+  text-align: center;
+}
+
+.spinnerModal {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  text-align: center;
+  z-index: 1;
+  /* Sit on top */
+  overflow: auto;
+  background: url("./images/ajax-indicator-circle-ball-blue.gif") no-repeat center fixed;
+  background-color: rgba(255,
+      255,
+      255,
+      0.3);
+  /* Create overlay - black w/ opacity */
+}
+
+.spinnerModal p {
+  margin-top: 300px;
+}
+
+.search-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-wrapper input[type="text"] {
+  font-size: 17px;
+  border: 1px solid lightgray;
+  margin: 0px;
+  padding: 10px;
+  width: 70%;
+  height: 40px;
+}
+
+.search-wrapper button {
+  width: 40px;
+  height: 40px;
+  margin: 0px;
+  padding: 10px;
+  background: #2196f3;
+  color: white;
+  font-size: 20px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+.search-wrapper button:hover,  
+.centered-container button:focus {
+  background: #da0b8b;
+}
+
+@media screen and (min-width: 600px) {
+  .search-wrapper input[type="text"] {
+    width: 50%;
+  }
+}

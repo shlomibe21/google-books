@@ -1,0 +1,37 @@
+.book-tile-container {
+    position: relative;
+    border-radius: 6px;
+    background-color: white;
+    width: 150px;
+    height: 270px;
+    padding-top: 5px;
+    border: solid blue 1px;
+}
+
+.thumbnail-container {
+    width: 100%;
+    height: 200px;
+    margin-bottom: 3px;
+    /*border: solid green 1px;*/
+}
+
+.book-info {
+    width: 135px;
+    text-align: left;
+    font-size: 80%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+img {
+    max-width: 100%;
+    height: 200px;
+    border: solid lightgray;
+}
+
+@media only screen and (min-width: 640px) {
+    .book-tile-container {
+        width: 160px;
+    }
+}

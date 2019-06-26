@@ -1,0 +1,32 @@
+ul {
+    padding: 0;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    list-style-type: none;
+}
+
+.books-list {
+    display: flex;
+    /*flex-flow: row wrap;*/
+    flex-wrap: wrap;
+    justify-content: center;
+    align-content: stretch;
+    /*border: solid red 1px;*/
+}
+
+.books-list li {
+    padding: 15px 10px 15px 0px;
+}
+
+@media only screen and (min-width: 640px) {
+    .books-list {
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-start;
+        /*border: solid red 1px;*/
+    }
+
+    .albums-container li {
+        align-items: flex-start;
+    }
+}

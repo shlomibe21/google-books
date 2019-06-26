@@ -1,14 +1,12 @@
 import axios from 'axios';
 
-//let API_URL = `https://www.googleapis.com/books/v1/volumes`;
-
 // google books api calls
 
 // Fetch books based on the searchTerm from google books api
-const fetchBooks = async (searchTerm, apiUrl, callback) => {
+const fetchBooks = async (searchTerm, apiUrl, maxResults, startIndex, callback) => {
     // GET call using axios
     try {
-        const result = await axios.get(`${apiUrl}?q=${searchTerm}`);
+        const result = await axios.get(`${apiUrl}?q=${searchTerm}&maxResults=${maxResults}&startIndex=${startIndex}`);
         // Results
         //console.log('Books Results: ', result.data.items);
         let { data } = result;

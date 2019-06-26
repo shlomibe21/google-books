@@ -15,6 +15,7 @@ class SearchInput extends Component {
                     placeholder="Search books"
                     value={this.props.searchQuery}
                     onChange={(evt) => this.props.onSearchInputChange(evt)}
+                    onKeyDown={(evt) => this.props.onSearchInputKeyDown(evt)}
                 />
                 <button type="submit" className="search-books-button"
                     aria-label="Search books button"
