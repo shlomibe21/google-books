@@ -17,6 +17,7 @@ class Dashboard extends Component {
             searchQuery: '',
             loading: false,
             currentStartIndex: 0,
+            prevStartIndex: 0,
             searchQueryChanged: true
         };
     }
@@ -43,12 +44,14 @@ class Dashboard extends Component {
         this.handleLoadingState(false);
         this.setState({ searchQueryChanged: false });
         if (err) {
-            // Reset currentStartIndex
-            this.setState({ currentStartIndex: defaulStartIndex });
+            // If fetch failed we need to set currentStartIndex to what it was before
+            this.setState({ currentStartIndex: this.state.prevStartIndex });
             console.log(err);
             alert('Error: please try again. \nYou may need to wait a few minutes!');
         }
         else {
+            // If fetch was ok we need to set prevStartIndex to the same value as currentStartIndex
+            this.setState({ prevStartIndex: this.state.currentStartIndex});
             //console.log('Books Data: ', data);
             this.setState({ books: data });
         }
