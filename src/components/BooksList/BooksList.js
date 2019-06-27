@@ -6,19 +6,25 @@ function BooksList(props) {
     //console.log(props.books);
     let booksList = null;
     let totalItems = null;
-    let emptyMsg = null;
+    let template = null;
+
     if (props.books && props.books.items) {
         totalItems = <span>{props.books.totalItems} items found</span>;
-        booksList = props.books.items.map((book, index) => (
-            <li key={index} className="">
-                <BookTile index={index} {...book} />
-            </li>
-        ));
+        booksList = getBooksList();
+        template = <ul className="books-list">{booksList}</ul>;
+
+        function getBooksList() {
+            return props.books.items.map((book, index) => (
+                <li key={index} className="">
+                    <BookTile index={index} {...book} />
+                </li>
+            ));
+        }
     }
     else {
         // Display an empty page message
         totalItems = null;
-        emptyMsg = <div className="emapty-page-msg centered-container">
+        template = <div className="emapty-page-msg centered-container">
             <p>Hey, It is empty in here! Let's find some good books to read.</p>
             <img
                 src={require("../../images/woman-1459220_1280.png")}
@@ -30,8 +36,7 @@ function BooksList(props) {
         <section className="books-container">
             <legend >Books List</legend>
             {totalItems}
-            <ul className="books-list">{booksList}</ul>
-            <div className="books-list">{emptyMsg}</div>
+            {template}
         </section>
     );
 }

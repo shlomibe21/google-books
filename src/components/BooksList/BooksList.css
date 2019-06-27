@@ -5,6 +5,12 @@ ul {
     list-style-type: none;
 }
 
+legend {
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .books-list {
     display: flex;
     /*flex-flow: row wrap;*/
@@ -36,6 +42,6 @@ ul {
     }
 
     .emapty-page-msg img {
-        height: 30%;
+        height: 200px;
     }
 }

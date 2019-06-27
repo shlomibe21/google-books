@@ -12,9 +12,4 @@ describe("<BooksList />", () => {
         const wrapper = shallow(<BooksList />);
         expect(wrapper.find('.books-container').hasClass('books-container')).toEqual(true);
     });
-
-    it('Renders the books-list initially', () => {
-        const wrapper = shallow(<BooksList />);
-        expect(wrapper.find('.books-list').hasClass('books-list')).toEqual(true);
-    });
 });
