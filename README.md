@@ -8,6 +8,8 @@ Application displys up to 16 books on the page and the user can use the Next but
 -[To go to the live demo of SBS Books click here](https://google-books-sbs.herokuapp.com/)
 
 ## App Screeshots
+![Dashboard - empty page](https://github.com/shlomibe21/google-books/blob/master/public/screenshots/SBSBooksEmptyPage.png)
+![Dashboard - with search results](https://github.com/shlomibe21/google-books/blob/master/public/screenshots/SBSBooksDashboard.png)
 
 ## Technologies
   - JavaScript
