@@ -8,7 +8,7 @@ The application displays up to 16 books on the page and the user can use the Nex
 -[To go to the live demo of SBS Books click here](https://google-books-sbs.herokuapp.com/)
 
 ## Installation and Setup Instructions for Development Environment
-- **Node NPM and  GIT should be installed globaly on the machine.**
+- **Node, NPM, and  GIT should be installed globaly on the machine.**
 
 - **Installing the Application**
   - git clone https://github.com/shlomibe21/google-books.git
