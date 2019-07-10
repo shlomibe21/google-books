@@ -101,11 +101,13 @@ class Dashboard extends Component {
         // Get the books list
         let { books } = this.state;
         let booksList = null;
+        let loader = null;
+
         if (books) {
             booksList = <BooksList books={books} />
         }
         if (this.state.loading) {
-            return <Loader />
+            loader = <Loader />;
         }
 
         // Set the conditions to display or to hide the next and prev buttons
@@ -117,6 +119,7 @@ class Dashboard extends Component {
 
         return (
             <div className="dashboard centered-container centered-text" aria-live="polite">
+                {loader}
                 <header>
                     <h1>Welcome to SBS Books</h1>
                 </header>
