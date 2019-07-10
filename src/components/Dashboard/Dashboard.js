@@ -18,7 +18,7 @@ class Dashboard extends Component {
             loading: false,
             currentStartIndex: 0,
             prevStartIndex: 0,
-            searchQueryChanged: true
+            searchQueryChanged: false
         };
     }
 
@@ -27,11 +27,22 @@ class Dashboard extends Component {
         //return fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex, this.getFetchedResults);
     }
 
-    search(maxResults, StartIndex) {
+    // Implement search based on the search query in the search box
+    search = async (maxResults, StartIndex) => {
+        this.setState({ searchQueryChanged: false });
         // If search box is not empty perform fetch books - perform GET request from google books api
         if (this.state.searchQuery.length > 0) {
             this.handleLoadingState(true);
-            return fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, maxResults, StartIndex, this.getFetchedResults);
+            try {
+                const books = await fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, maxResults, StartIndex, this.getFetchedResults);
+                this.fetchResultsSuccess(books);
+            }
+            catch (err) {
+                this.fetchResultsFailure(err);
+            }
+            finally {
+                this.handleLoadingState(false);
+            }
         }
         // In case that search box is empty, change books state to empty array.
         else {
@@ -39,23 +50,21 @@ class Dashboard extends Component {
         }
     }
 
-    // Callback function to handle the results of fetchBooks
-    getFetchedResults = (err, data) => {
-        this.handleLoadingState(false);
-        this.setState({ searchQueryChanged: false });
-        if (err) {
-            // If fetch failed we need to set currentStartIndex to what it was before
-            this.setState({ currentStartIndex: this.state.prevStartIndex });
-            console.log(err);
-            alert('Error: please try again. \nYou may need to wait a few minutes!');
-        }
-        else {
-            // If fetch was ok we need to set prevStartIndex to the same value as currentStartIndex
-            this.setState({ prevStartIndex: this.state.currentStartIndex });
-            //console.log('Books Data: ', data);
-            this.setState({ books: data });
-        }
-    };
+    // Handle results in case that fetch was successful
+    fetchResultsSuccess(data) {
+        // If fetch was successful we need to set prevStartIndex to the same value as currentStartIndex
+        this.setState({ prevStartIndex: this.state.currentStartIndex });
+        //console.log('Books Data: ', data);
+        this.setState({ books: data });
+    }
+
+    // Handle errors in case that fetch failed
+    fetchResultsFailure(err) {
+        // If fetch failed we need to set currentStartIndex to what it was before
+        this.setState({ currentStartIndex: this.state.prevStartIndex });
+        console.log(err);
+        alert('Error: please try again. \nYou may need to wait a few minutes!');
+    }
 
     handleLoadingState(state) {
         this.setState({ loading: state });
@@ -85,15 +94,19 @@ class Dashboard extends Component {
         }
     }
 
-    handleSearchNextItems(evt) {
+    handleSearchNextItems = async (evt) => {
         // Increment currentStartIndex by number of maxResults
-        this.setState({ currentStartIndex: this.state.currentStartIndex + defaultMaxResults });
+        await this.setState(prevState => ({
+            currentStartIndex: (prevState.currentStartIndex + defaultMaxResults)
+        }));
         this.search(defaultMaxResults, this.state.currentStartIndex);
     }
 
-    handleSearchPrevItems(evt) {
+    handleSearchPrevItems = async (evt) => {
         // Decrement currentStartIndex by number of maxResults
-        this.setState({ currentStartIndex: this.state.currentStartIndex - defaultMaxResults });
+        await this.setState(prevState => ({
+            currentStartIndex: (prevState.currentStartIndex - defaultMaxResults)
+        }));
         this.search(defaultMaxResults, this.state.currentStartIndex);
     }
 
@@ -112,9 +125,9 @@ class Dashboard extends Component {
 
         // Set the conditions to display or to hide the next and prev buttons
         let nextItemsButtonHidden = ((books.length === 0) ||
-            (this.state.currentStartIndex >= books.totalItems) ||
+            ((this.state.currentStartIndex + defaultMaxResults) >= books.totalItems) ||
             (this.state.searchQueryChanged));
-        let prevItemsButtonHidden = ((this.state.currentStartIndex <= 0) ||
+        let prevItemsButtonHidden = (((this.state.currentStartIndex - defaultMaxResults) < 0) ||
             (this.state.searchQueryChanged));
 
         return (
