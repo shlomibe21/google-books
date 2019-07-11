@@ -39,9 +39,9 @@ body {
   /* Sit on top */
   overflow: auto;
   background: url("./images/ajax-indicator-circle-ball-blue.gif") no-repeat center fixed;
-  background-color: rgba(255,
-      255,
-      255,
+  background-color: rgba(001,
+      001,
+      001,
       0.5);
 }
 

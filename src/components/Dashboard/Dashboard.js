@@ -132,11 +132,13 @@ class Dashboard extends Component {
         }
 
         // Set the conditions to display or to hide the next and prev buttons
+        let prevItemsButtonHidden = (((this.state.currentStartIndex - defaultMaxResults) < 0) ||
+            (this.state.searchQueryChanged));
         let nextItemsButtonHidden = ((books.length === 0) ||
             ((this.state.currentStartIndex + defaultMaxResults) >= books.totalItems) ||
             (this.state.searchQueryChanged));
-        let prevItemsButtonHidden = (((this.state.currentStartIndex - defaultMaxResults) < 0) ||
-            (this.state.searchQueryChanged));
+        let prevBtnClassName = prevItemsButtonHidden ? "prev-items-button hide" : "prev-items-button";
+        let nextBtnClassName = nextItemsButtonHidden ? "next-items-button hide" : "next-items-button";
 
         return (
             <div className="dashboard centered-container centered-text" aria-live="polite">
@@ -151,8 +153,8 @@ class Dashboard extends Component {
                     onSearchButtonClick={() => this.handleOnClickSearchButton()}
                     onSearchInputKeyDown={(evt) => this.handleSearchInputonKeyDown(evt)}
                 />
-                {prevItemsButtonHidden ? <span></span> : <button className="prev-items-button" onClick={(evt) => this.handleSearchPrevItems(evt)}>Prev</button>}
-                {nextItemsButtonHidden ? <span></span> : <button className="next-items-button" onClick={(evt) => this.handleSearchNextItems(evt)}>Next</button>}
+                <button className={prevBtnClassName} onClick={(evt) => this.handleSearchPrevItems(evt)}>Prev</button>
+                <button className={nextBtnClassName} onClick={(evt) => this.handleSearchNextItems(evt)}>Next</button>
                 {booksList}
             </div>
         );
