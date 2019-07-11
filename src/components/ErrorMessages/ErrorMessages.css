@@ -1,0 +1,10 @@
+.error-message {
+    font-size: 1rem;
+    color: red;
+}
+
+@media only screen and (min-width: 640px) {
+    .error-message {
+        font-size: 1.5rem;
+    }
+}

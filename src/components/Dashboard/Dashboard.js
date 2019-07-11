@@ -6,6 +6,7 @@ import { GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex } from '../..
 import fetchBooks from '../../api/GetBooks.api';
 import SearchInput from '../Search/Search';
 import Loader from '../UI/Loader/Loader';
+import ErrorMessage from '../ErrorMessages/ErrorMessages';
 
 import './Dashboard.css';
 
@@ -14,6 +15,7 @@ class Dashboard extends Component {
         super(props);
         this.state = {
             books: [],
+            errors: '',
             searchQuery: '',
             loading: false,
             currentStartIndex: 0,
@@ -54,16 +56,18 @@ class Dashboard extends Component {
     fetchResultsSuccess(data) {
         // If fetch was successful we need to set prevStartIndex to the same value as currentStartIndex
         this.setState({ prevStartIndex: this.state.currentStartIndex });
-        //console.log('Books Data: ', data);
+        // Clear errors
+        this.setState({ errors: '' });
+        // Update books
         this.setState({ books: data });
     }
 
     // Handle errors in case that fetch failed
     fetchResultsFailure(err) {
+        console.log(err);
         // If fetch failed we need to set currentStartIndex to what it was before
         this.setState({ currentStartIndex: this.state.prevStartIndex });
-        console.log(err);
-        alert('Error: please try again. \nYou may need to wait a few minutes!');
+        this.setState({ errors: err.message });
     }
 
     handleLoadingState(state) {
@@ -73,24 +77,28 @@ class Dashboard extends Component {
     updateQueryValue(evt) {
         this.setState({ searchQuery: evt.target.value });
         this.setState({ searchQueryChanged: true });
+        this.setState({ errors: '' });
         // Due to limited search rate, don't search on the fly,
         // search only when the search button is clicked
         //this.search(defaultMaxResults, defaulStartIndex);
     }
 
+    handleNewSearch() {
+        this.search(defaultMaxResults, defaulStartIndex);
+        // This is a new search, reset currentStartIndex
+        this.setState({ currentStartIndex: defaulStartIndex });
+    }
+
     handleOnClickSearchButton() {
         // This is a new search
-        this.search(defaultMaxResults, defaulStartIndex);
-        // Reset currentStartIndex
-        this.setState({ currentStartIndex: defaulStartIndex });
+        this.handleNewSearch();
     }
 
     handleSearchInputonKeyDown(evt) {
         // If Enter button was pressed, call to search
         if (evt.keyCode === 13) {
-            this.search(defaultMaxResults, defaulStartIndex);
-            // This is a new search, reset currentStartIndex
-            this.setState({ currentStartIndex: defaulStartIndex });
+            // This is a new search
+            this.handleNewSearch()
         }
     }
 
@@ -136,6 +144,7 @@ class Dashboard extends Component {
                 <header>
                     <h1>Welcome to SBS Books</h1>
                 </header>
+                <ErrorMessage error={this.state.errors} />
                 <SearchInput
                     searchQuery={this.state.searchQuery}
                     onSearchInputChange={evt => this.updateQueryValue(evt)}
