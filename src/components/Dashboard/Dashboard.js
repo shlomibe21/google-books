@@ -64,7 +64,7 @@ class Dashboard extends Component {
 
     // Handle errors in case that fetch failed
     fetchResultsFailure(err) {
-        console.log(err);
+        //console.log(err);
         // If fetch failed we need to set currentStartIndex to what it was before
         this.setState({ currentStartIndex: this.state.prevStartIndex });
         this.setState({ errors: err.message });
