@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import BooksList from '../../../src/components/BooksList/BooksList';
 import { GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex } from '../../config';
-//import { FaArrowCircleRight, FaArrowCircleLeft } from 'react-icons/fa';
 
 import fetchBooks from '../../api/GetBooks.api';
 import SearchInput from '../Search/Search';
@@ -26,7 +25,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         // We are starting with empty searc box so we don't need this one at this point
-        //return fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex, this.getFetchedResults);
+        //return fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex);
     }
 
     // Implement search based on the search query in the search box
@@ -36,7 +35,7 @@ class Dashboard extends Component {
         if (this.state.searchQuery.length > 0) {
             this.handleLoadingState(true);
             try {
-                const books = await fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, maxResults, StartIndex, this.getFetchedResults);
+                const books = await fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, maxResults, StartIndex);
                 this.fetchResultsSuccess(books);
             }
             catch (err) {
