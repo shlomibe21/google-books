@@ -15,7 +15,7 @@ function BooksList(props) {
 
         function getBooksList() {
             return props.books.items.map((book, index) => (
-                <li key={index} className="">
+                <li key={index} className="books-list-item">
                     <BookTile index={index} {...book} />
                 </li>
             ));

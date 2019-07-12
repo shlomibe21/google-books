@@ -4,6 +4,11 @@ const maxResults = 10;
 const startIndex = 0;
 
 describe('Call to fetchBooks', () => {
+  beforeEach(function () {
+    // Sometime we need more time for the tests
+    jest.setTimeout(30000)
+  });
+
   it('Should return JSON object of books', async () => {
     await fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1/volumes", maxResults, startIndex, (err, data) => {
       expect(err).toEqual(null);
@@ -34,7 +39,7 @@ describe('Call to fetchBooks', () => {
     });
   });
 
-  it('Should return Not Found error due too wrong url', async () => {
+  it('Should return Not Found error due too a wrong url', async () => {
     try {
       await fetchBooks("Pride and Prejudice", "https://www.googleapis.com/books/v1", maxResults, startIndex, (err, data) => {
       });

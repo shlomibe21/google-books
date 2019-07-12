@@ -25,7 +25,7 @@ class Dashboard extends Component {
 
     componentDidMount() {
         // We are starting with empty searc box so we don't need this one at this point
-        //return fetchBooks(this.state.searchQuery, GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex);
+        //this.search(defaultMaxResults, defaulStartIndex);
     }
 
     // Implement search based on the search query in the search box
@@ -63,7 +63,7 @@ class Dashboard extends Component {
 
     // Handle errors in case that fetch failed
     fetchResultsFailure(err) {
-        //console.log(err);
+        console.log(err);
         // If fetch failed we need to set currentStartIndex to what it was before
         this.setState({ currentStartIndex: this.state.prevStartIndex });
         this.setState({ errors: err.message });
@@ -88,7 +88,7 @@ class Dashboard extends Component {
         this.setState({ currentStartIndex: defaulStartIndex });
     }
 
-    handleOnClickSearchButton() {
+    handleOnClickSearchButton(evt) {
         // This is a new search
         this.handleNewSearch();
     }
@@ -101,7 +101,7 @@ class Dashboard extends Component {
         }
     }
 
-    handleSearchNextItems = async (evt) => {
+    handleSearchNextItems = async () => {
         // Increment currentStartIndex by number of maxResults
         await this.setState(prevState => ({
             currentStartIndex: (prevState.currentStartIndex + defaultMaxResults)
@@ -109,7 +109,7 @@ class Dashboard extends Component {
         this.search(defaultMaxResults, this.state.currentStartIndex);
     }
 
-    handleSearchPrevItems = async (evt) => {
+    handleSearchPrevItems = async () => {
         // Decrement currentStartIndex by number of maxResults
         await this.setState(prevState => ({
             currentStartIndex: (prevState.currentStartIndex - defaultMaxResults)
@@ -148,12 +148,12 @@ class Dashboard extends Component {
                 <ErrorMessage error={this.state.errors} />
                 <SearchInput
                     searchQuery={this.state.searchQuery}
-                    onSearchInputChange={evt => this.updateQueryValue(evt)}
-                    onSearchButtonClick={() => this.handleOnClickSearchButton()}
+                    onSearchInputChange={(evt) => this.updateQueryValue(evt)}
+                    onSearchButtonClick={(evt) => this.handleOnClickSearchButton(evt)}
                     onSearchInputKeyDown={(evt) => this.handleSearchInputonKeyDown(evt)}
                 />
-                <button className={prevBtnClassName} onClick={(evt) => this.handleSearchPrevItems(evt)}>Prev</button>
-                <button className={nextBtnClassName} onClick={(evt) => this.handleSearchNextItems(evt)}>Next</button>
+                <button className={prevBtnClassName} onClick={() => this.handleSearchPrevItems()}>Prev</button>
+                <button className={nextBtnClassName} onClick={() => this.handleSearchNextItems()}>Next</button>
                 {booksList}
             </div>
         );
