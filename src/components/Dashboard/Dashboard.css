@@ -10,3 +10,7 @@ button {
 .prev-items-button {
     float: left;
 }
+
+.hide {
+    visibility: hidden;
+}
