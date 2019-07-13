@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import BooksList from '../../../src/components/BooksList/BooksList';
-import { GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex } from '../../config';
+import { GOOGLE_BOOKS_API_URL, defaultMaxResults, defaulStartIndex, errorMsgNotFound } from '../../config';
 
 import fetchBooks from '../../api/GetBooks.api';
 import SearchInput from '../Search/Search';
@@ -66,7 +66,12 @@ class Dashboard extends Component {
         console.log(err);
         // If fetch failed we need to set currentStartIndex to what it was before
         this.setState({ currentStartIndex: this.state.prevStartIndex });
-        this.setState({ errors: err.message });
+        if((err) && (err.message)) {
+            this.setState({ errors: err.message });    
+        }
+        else {
+            this.setState({ errors: errorMsgNotFound });
+        }
     }
 
     handleLoadingState(state) {

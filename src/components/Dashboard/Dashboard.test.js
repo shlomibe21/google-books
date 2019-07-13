@@ -2,11 +2,16 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import { waitForState } from 'enzyme-async-helpers';
 
-import { defaultMaxResults, defaulStartIndex } from '../../config';
+import { defaultMaxResults, defaulStartIndex, errorMsgNotFound } from '../../config';
 
 import Dashboard from './Dashboard';
 
 describe('<Dashboard />', () => {
+    beforeEach(function () {
+        // Sometime we need more time for the tests
+        jest.setTimeout(30000)
+    });
+
     it('Renders without crashing', () => {
         shallow(<Dashboard />);
     });
@@ -29,13 +34,19 @@ describe('<Dashboard />', () => {
         expect(wrapper.state().loading).toBe(false);
     });
 
-    it('Calling fetchResultsFailure with error message should be echoed', () => {
+    it('Calling fetchResultsFailure with err.message should be echoed', () => {
         const err = {
             message: "I Could not find any book"
         }
         const wrapper = shallow(<Dashboard />);
         wrapper.instance().fetchResultsFailure(err);
         expect(wrapper.state().errors).toEqual("I Could not find any book");
+    });
+
+    it('Calling fetchResultsFailure with simple error message should display a generic message', () => {
+        const wrapper = shallow(<Dashboard />);
+        wrapper.instance().fetchResultsFailure("I Could not find any book");
+        expect(wrapper.state().errors).toEqual(errorMsgNotFound);
     });
 
     it("After adding text to the search input box, searchQuery should contain the query", () => {
@@ -49,7 +60,7 @@ describe('<Dashboard />', () => {
     it('Calling handleSearchNextItems and then handleSearchPrevItems should increment and then decrement currentStartIndex', () => {
         const wrapper = shallow(<Dashboard />);
         wrapper.instance().handleSearchNextItems();
-        expect(wrapper.state().currentStartIndex).toEqual(defaulStartIndex+defaultMaxResults);
+        expect(wrapper.state().currentStartIndex).toEqual(defaulStartIndex + defaultMaxResults);
         wrapper.instance().handleSearchPrevItems();
         expect(wrapper.state().currentStartIndex).toEqual(defaulStartIndex);
     });
@@ -101,22 +112,23 @@ describe('<Dashboard />', () => {
         expect(wrapper.state().prevStartIndex).toEqual(wrapper.state().currentStartIndex);
         expect(wrapper.state().searchQueryChanged).toEqual(false);
     });
-    
+
     it("Clicking next-items-button should increment the currentStartIndex and clicking prev-items-button should decrement it", async () => {
         const wrapper = mount(<Dashboard />);
+        // First we need to perform a search
         wrapper.find('.search-books-input').simulate("change", { target: { value: "Pride and Prejudice" } });
         const button = wrapper.find(".search-books-button");
         await button.simulate("click");
         // We need to wait for loading state to be false this is an indication that fetch ended
         await waitForState(wrapper, state => state.loading === false);
         expect(wrapper.state().loading).toBe(false);
-        // Click on nextItemsButton wait for fetch to end and check states
+        // Click on nextItemsButton, wait for fetch to end, and check states
         const nextItemsButton = wrapper.find(".next-items-button");
         await nextItemsButton.simulate("click");
         await waitForState(wrapper, state => state.loading === false);
-        expect(wrapper.state().currentStartIndex).toEqual(defaulStartIndex+defaultMaxResults);
+        expect(wrapper.state().currentStartIndex).toEqual(defaulStartIndex + defaultMaxResults);
         expect(wrapper.state().prevStartIndex).toEqual(wrapper.state().currentStartIndex);
-        // Click on prevItemsButton wait for fetch to end and check states
+        // Click on prevItemsButton, wait for fetch to end, and check states
         const prevItemsButton = wrapper.find(".prev-items-button");
         await prevItemsButton.simulate("click");
         await waitForState(wrapper, state => state.loading === false);

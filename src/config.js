@@ -4,3 +4,4 @@ export const API_BASE_URL =
   export const GOOGLE_BOOKS_API_URL = "https://www.googleapis.com/books/v1/volumes";
   export const defaultMaxResults = 16;
   export const defaulStartIndex = 0;
+  export const errorMsgNotFound = 'Error: search failed';
